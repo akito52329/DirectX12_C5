@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DirectX12_2022_Chapter5.cpp">
+    <ClCompile Include="DirectX12_C5.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
