@@ -257,7 +257,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		{{ 0.4f,  0.7f, 0.0f},	{1.0f, 0.0f}}, // 右上
 	};*/
 
-	Vertex  vertices[] = {
+	/*Vertex  vertices[] = {
 		{{0.0f, 0.5f ,0.0f},	{1.0f, 1.0f}}, // 0
 		{{0.5f / r, 0.25f,0.0f},	{0.0f, 1.0f}}, // 1
 		{{0.5f / r, -0.25f,0.0f},	{0.0f, 0.0f}}, // 2
@@ -267,6 +267,19 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		{{0.7f, 0.0f,0.0f},	{1.0f, 0.0f}}, // 6
 		{{0.7f, -0.7f,0.0f},	{1.0f, 1.0f}}, // 7
 		{{1.0f , -0.7f,0.0f},	{0.0f, 0.0f}}, // 8
+	};*/
+
+	Vertex  vertices[] = {
+	{{0.0f, 0.0f ,0.0f},	{0.0f, 0.0f}}, // 0
+	{{0.0f, 0.5f ,0.0f},	{1.0f, 1.0f}}, // 0
+	{{0.5f / r, 0.25f,0.0f},	{1.0f, 1.0f}}, // 1
+	{{0.5f / r, -0.25f,0.0f},	{1.0f, 1.0f}}, // 2
+	{{0.0f, -0.5f,0.0f},	{1.0f, 1.0f}}, // 3
+	{{-0.5f / r, -0.25f,0.0f},	{1.0f, 1.0f}}, // 4
+	{{-0.5f / r, 0.25f,0.0f},	{1.0f, 1.0f}}, //5
+	{{0.7f, 0.0f,0.0f},	{1.0f, 1.0f}}, // 6
+	{{0.7f, -0.7f,0.0f},	{1.0f, 1.0f}}, // 7
+	{{1.0f , -0.7f,0.0f},	{0.0f, 0.0f}}, // 8
 	};
 
 	/*XMFLOAT3 vertices[] =
@@ -345,7 +358,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 	//Chapter4_11_2 P150
 	//unsigned short indices[] = { 0, 1, 2,    2, 1, 3 };
-	unsigned short indices[] = { 0,1,2, 0,2,3, 0,3,4, 0,4,5, 6,7,8 };
+//	unsigned short indices[] = { 0,1,2, 0,2,3, 0,3,4, 0,4,5, 6,7,8 };
+	unsigned short indices[] = { 0,1,2, 0,2,3, 0,3,4, 0,4,5, 0,5,6, 0,6,1, 7,8,9 };
 	ID3D12Resource* idxBuff = nullptr;
 	resdesc.Width = sizeof(indices);
 	result = _dev->CreateCommittedResource(
@@ -585,6 +599,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	//	rgba.B = rand() % 256;
 	//	rgba.A = 255;//アルファは1.0という事にします。
 	//}
+	/*
 	for (int i = 0; i < 256; i++) {
 		for (int j = 0; j < 256; j++) {
 			if ((i /16 % 2)%2==0) {
@@ -599,7 +614,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			}
 			texturedata[j * 256 + i].A = 1;
 		}
-	}
+	}*/
 
 	//WriteToSubresourceで転送する用のヒープ設定
 	D3D12_HEAP_PROPERTIES texHeapProp = {};
@@ -660,7 +675,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 
 	MSG	msg = {};
-	int g = 0;
 	float clearColor[] = { 1.0f, 1.0f, 0.0f, 1.0f }; //黄色
 
 	while (true) {
@@ -672,11 +686,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		if (msg.message == WM_QUIT) {
 			break;
 		}
-
-		g++;
-		clearColor[0] = sin((g % 300) / 300.0f * M_PI);
-		clearColor[1] = sin((g % 200) / 200.0f * M_PI);
-		clearColor[2] = sin((g % 100) / 100.0f * M_PI);
 
 		// Chapter3_3_6
 		// スワップチェーンを動作
@@ -719,7 +728,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 
 		//_cmdList->DrawIndexedInstanced(6, 1, 0, 0, 0);
-		_cmdList->DrawIndexedInstanced(15, 1, 0, 0, 0);
+		_cmdList->DrawIndexedInstanced(23, 1, 0, 0, 0);
 
 		//// Chapter3_4_3　 リソースバリア
 		BarrierDesc.Transition.StateBefore = D3D12_RESOURCE_STATE_RENDER_TARGET;
