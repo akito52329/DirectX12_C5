@@ -599,10 +599,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	//	rgba.B = rand() % 256;
 	//	rgba.A = 255;//アルファは1.0という事にします。
 	//}
-	/*
+	
+	double ru = 50.0f;
+
 	for (int i = 0; i < 256; i++) {
 		for (int j = 0; j < 256; j++) {
-			if ((i /16 % 2)%2==0) {
+			/*if ((i / 16 % 2) % 2 == 0)
+			if ( (i / 16 % 2) % 2 == 0 )
+			{
 				texturedata[j * 256 + i].R = 255;
 				texturedata[j * 256 + i].G = 0;
 				texturedata[j * 256 + i].B = 0;
@@ -611,10 +615,22 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				texturedata[j * 256 + i].R = 255;
 				texturedata[j * 256 + i].G = 255;
 				texturedata[j * 256 + i].B = 255;
+			}*/
+			if (i + j < ru)
+			{
+				texturedata[j + i * 256].R = 255;
+				texturedata[j + i * 256].G = 0;
+				texturedata[j + i * 256].B = 0;
+				
 			}
-			texturedata[j * 256 + i].A = 1;
+			else {
+				texturedata[j + i * 256].R = 255;
+				texturedata[j + i * 256].G = 255;
+				texturedata[j + i * 256].B = 255;
+			}
+			texturedata[j + i * 256].A = 1;
 		}
-	}*/
+	}
 
 	//WriteToSubresourceで転送する用のヒープ設定
 	D3D12_HEAP_PROPERTIES texHeapProp = {};
